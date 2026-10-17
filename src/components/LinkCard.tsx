@@ -1,16 +1,24 @@
+import type { ReactNode } from "react";
+
 type LinkCardProps = {
   title: string;
   url: string;
+  icon?: ReactNode;
 };
 
-export default function LinkCard({ title, url }: LinkCardProps) {
+export default function LinkCard({ title, url, icon }: LinkCardProps) {
+  // mailto: 링크는 새 탭 대신 메일 앱을 바로 연다
+  const isExternal = !url.startsWith("mailto:");
+
   return (
     <a
       href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="flex min-h-14 w-full items-center justify-center rounded-2xl border border-zinc-200 bg-white px-5 py-4 text-base font-semibold shadow-sm transition hover:-translate-y-0.5 hover:border-green-500 hover:shadow-md active:translate-y-0 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-green-500"
+      {...(isExternal && { target: "_blank", rel: "noopener noreferrer" })}
+      className="relative flex min-h-15 w-full items-center justify-center rounded-3xl border border-white/70 bg-white/45 px-14 py-4 text-[15px] font-semibold shadow-[0_8px_24px_-14px_rgba(140,80,45,0.35)] backdrop-blur-xl transition duration-300 ease-out hover:-translate-y-px hover:bg-white/65 hover:shadow-[0_12px_28px_-14px_rgba(140,80,45,0.45)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#c9825a] dark:border-white/10 dark:bg-white/[0.06] dark:shadow-[0_8px_24px_-14px_rgba(0,0,0,0.6)] dark:hover:bg-white/10"
     >
+      {icon && (
+        <span className="absolute left-5 flex items-center opacity-80">{icon}</span>
+      )}
       {title}
     </a>
   );
