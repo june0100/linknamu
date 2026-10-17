@@ -1,6 +1,6 @@
-import LinkCard from "@/components/LinkCard";
-import { GitHubIcon, LinkedInIcon, MailIcon } from "@/components/LinkIcons";
+import LinkList from "@/components/LinkList";
 import ProfileHeader from "@/components/ProfileHeader";
+import { links } from "@/data/links";
 
 // TODO: 보여 주기용 더미 데이터 — 실제 프로필과 링크로 교체하기
 const profile = {
@@ -8,29 +8,6 @@ const profile = {
   bio: "Linker | 세상을 연결한다.",
   imageSrc: "/profile.jpg",
 };
-
-const iconClassName = "h-5 w-5 shrink-0";
-
-const links = [
-  {
-    id: "github",
-    title: "깃허브",
-    url: "https://github.com/june0100",
-    icon: <GitHubIcon className={iconClassName} />,
-  },
-  {
-    id: "linkedin",
-    title: "LinkedIn",
-    url: "https://www.linkedin.com",
-    icon: <LinkedInIcon className={iconClassName} />,
-  },
-  {
-    id: "email",
-    title: "이메일",
-    url: "mailto:june0100@gmail.com",
-    icon: <MailIcon className={iconClassName} />,
-  },
-];
 
 export default function Home() {
   return (
@@ -44,13 +21,7 @@ export default function Home() {
       <div className="flex w-full max-w-sm flex-col gap-10">
         <ProfileHeader {...profile} />
         <nav aria-label="링크 목록">
-          <ul className="flex flex-col gap-4">
-            {links.map((link) => (
-              <li key={link.id}>
-                <LinkCard title={link.title} url={link.url} icon={link.icon} />
-              </li>
-            ))}
-          </ul>
+          <LinkList links={links} />
         </nav>
       </div>
     </main>
